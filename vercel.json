@@ -1,0 +1,21 @@
+{
+	"version": 2,
+	"functions": {
+		"api/recommendations.js": {
+			"maxDuration": 10
+		},
+		"api/health.js": {
+			"maxDuration": 5
+		}
+	},
+	"headers": [
+		{
+			"source": "/(.*)",
+			"headers": [
+				{ "key": "X-Content-Type-Options", "value": "nosniff" },
+				{ "key": "X-Frame-Options", "value": "DENY" },
+				{ "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+			]
+		}
+	]
+}
