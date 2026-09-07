@@ -1,10 +1,14 @@
 import { getAccessToken } from '../lib/token.js';
+import { cache } from '../lib/cache.js';
 
 export default async function handler(req) {
 	const health = {
 		status: 'ok',
 		timestamp: new Date().toISOString(),
 		checks: {},
+		stats: {
+			cacheSize: cache.size(),
+		},
 	};
 
 	try {
