@@ -162,7 +162,7 @@ async function fetchAudioFeatures(trackIds, accessToken) {
 		const ids = trackIds.slice(0, 100).join(',');
 		const res = await fetchWithRetry(
 			`https://api.spotify.com/v1/audio-features?ids=${ids}`,
-			{ headers: { Authorization: `Bearer ${accessToken}` } },
+			{ headers: { Authorization: `Bearer ${accessToken}` }, signal: AbortSignal.timeout(8000) },
 			2,
 		);
 
@@ -253,7 +253,7 @@ export default async function handler(req) {
 
 		const spotifyRes = await fetchWithRetry(
 			spotifyUrl.toString(),
-			{ headers: { Authorization: `Bearer ${accessToken}` } },
+			{ headers: { Authorization: `Bearer ${accessToken}` }, signal: AbortSignal.timeout(8000) },
 			3,
 		);
 
@@ -298,6 +298,6 @@ export default async function handler(req) {
 		});
 	} catch (err) {
 		console.error('Recommendations error:', err);
-		return jsonRes(500, { error: 'Internal server error' });
+		return jsonRes(500, { error: 'Internal server error', details: err.message });
 	}
 }
